@@ -1,0 +1,29 @@
+header:
+  license:
+    spdx-id: MPL-2.0
+
+  paths-ignore:
+    - "**/*.md"
+    - "LICENSE"
+    - ".github/**/*.*"
+    - ".idea/**/*"
+    - ".vscode/**/*"
+    - "Dockerfile"
+    - "Makefile"
+    - "docs/**/*"
+    - "hack/*"
+    - "**/*.yaml"
+    - "**/*.yml"
+    - "**/*.toml"
+    - ".*ignore"
+    - "README"
+    - "**/*.txt"
+    - "go.mod"
+    - "go.sum"
+
+  comment: on-failure
+
+# If you don't want to check dependencies' license compatibility, remove the following part
+dependency:
+  files:
+    - go.mod
