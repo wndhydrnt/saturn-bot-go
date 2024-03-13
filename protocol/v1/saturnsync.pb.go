@@ -351,8 +351,7 @@ type Action struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @gotags: yaml:"file,omitempty"
-	File *ActionFile `protobuf:"bytes,1,opt,name=file,proto3,oneof" json:"file,omitempty"`
+	File *ActionFile `protobuf:"bytes,1,opt,name=file,proto3,oneof" json:"file,omitempty" yaml:"file,omitempty"`
 }
 
 func (x *Action) Reset() {
@@ -399,14 +398,13 @@ type ActionFile struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @gotags: yaml:"content,omitempty"
-	Content string `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty"`
-	// @gotags: yaml:"mode,omitempty"
-	Mode *string `protobuf:"bytes,2,opt,name=mode,proto3,oneof" json:"mode,omitempty"`
-	// @gotags: yaml:"path,omitempty"
-	Path string `protobuf:"bytes,3,opt,name=path,proto3" json:"path,omitempty"`
-	// @gotags: yaml:"state,omitempty"
-	State string `protobuf:"bytes,4,opt,name=state,proto3" json:"state,omitempty"`
+	Content string `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty" yaml:"content,omitempty"`
+
+	Mode *string `protobuf:"bytes,2,opt,name=mode,proto3,oneof" json:"mode,omitempty" yaml:"mode,omitempty"`
+
+	Path string `protobuf:"bytes,3,opt,name=path,proto3" json:"path,omitempty" yaml:"path,omitempty"`
+
+	State string `protobuf:"bytes,4,opt,name=state,proto3" json:"state,omitempty" yaml:"state,omitempty"`
 }
 
 func (x *ActionFile) Reset() {
@@ -592,14 +590,13 @@ type Filter struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @gotags: yaml:"file,omitempty"
-	File *FilterFile `protobuf:"bytes,1,opt,name=file,proto3,oneof" json:"file,omitempty"`
-	// @gotags: yaml:"lineInFile,omitempty"
-	LineInFile *FilterLineInFile `protobuf:"bytes,2,opt,name=line_in_file,json=lineInFile,proto3,oneof" json:"line_in_file,omitempty"`
-	// @gotags: yaml:"repositoryName,omitempty"
-	RepositoryName *FilterRepositoryName `protobuf:"bytes,3,opt,name=repository_name,json=repositoryName,proto3,oneof" json:"repository_name,omitempty"`
-	// @gotags: yaml:"reverse,omitempty"
-	Reverse *bool `protobuf:"varint,4,opt,name=reverse,proto3,oneof" json:"reverse,omitempty"`
+	File *FilterFile `protobuf:"bytes,1,opt,name=file,proto3,oneof" json:"file,omitempty" yaml:"file,omitempty"`
+
+	LineInFile *FilterLineInFile `protobuf:"bytes,2,opt,name=line_in_file,json=lineInFile,proto3,oneof" json:"line_in_file,omitempty" yaml:"lineInFile,omitempty"`
+
+	RepositoryName *FilterRepositoryName `protobuf:"bytes,3,opt,name=repository_name,json=repositoryName,proto3,oneof" json:"repository_name,omitempty" yaml:"repositoryName,omitempty"`
+
+	Reverse *bool `protobuf:"varint,4,opt,name=reverse,proto3,oneof" json:"reverse,omitempty" yaml:"reverse,omitempty"`
 }
 
 func (x *Filter) Reset() {
@@ -667,10 +664,9 @@ type FilterLineInFile struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @gotags: yaml:"path,omitempty"
-	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
-	// @gotags: yaml:"search,omitempty"
-	Search string `protobuf:"bytes,2,opt,name=search,proto3" json:"search,omitempty"`
+	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty" yaml:"path,omitempty"`
+
+	Search string `protobuf:"bytes,2,opt,name=search,proto3" json:"search,omitempty" yaml:"search,omitempty"`
 }
 
 func (x *FilterLineInFile) Reset() {
@@ -724,8 +720,7 @@ type FilterFile struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @gotags: yaml:"path,omitempty"
-	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	Path string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty" yaml:"path,omitempty"`
 }
 
 func (x *FilterFile) Reset() {
@@ -772,8 +767,7 @@ type FilterRepositoryName struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @gotags: yaml:"names,omitempty"
-	Names []string `protobuf:"bytes,1,rep,name=names,proto3" json:"names,omitempty"`
+	Names []string `protobuf:"bytes,1,rep,name=names,proto3" json:"names,omitempty" yaml:"names,omitempty"`
 }
 
 func (x *FilterRepositoryName) Reset() {
@@ -1129,33 +1123,33 @@ type Task struct {
 	// The name of the Task.
 	// It identifies a task.
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	// @gotags: yaml:"autoMerge,omitempty"
-	AutoMerge *bool `protobuf:"varint,2,opt,name=auto_merge,json=autoMerge,proto3,oneof" json:"auto_merge,omitempty"`
-	// @gotags: yaml:"autoMergeAfterSeconds,omitempty"
-	AutoMergeAfterSeconds *int32 `protobuf:"varint,3,opt,name=auto_merge_after_seconds,json=autoMergeAfterSeconds,proto3,oneof" json:"auto_merge_after_seconds,omitempty"`
-	// @gotags: yaml:"branchName,omitempty"
-	BranchName *string `protobuf:"bytes,4,opt,name=branch_name,json=branchName,proto3,oneof" json:"branch_name,omitempty"`
-	// @gotags: yaml:"changeLimit,omitempty"
-	ChangeLimit *int32 `protobuf:"varint,5,opt,name=change_limit,json=changeLimit,proto3,oneof" json:"change_limit,omitempty"`
-	// @gotags: yaml:"commitMessage,omitempty"
-	CommitMessage *string `protobuf:"bytes,6,opt,name=commit_message,json=commitMessage,proto3,oneof" json:"commit_message,omitempty"`
-	// @gotags: yaml:"createOnly,omitempty"
-	CreateOnly *bool `protobuf:"varint,7,opt,name=create_only,json=createOnly,proto3,oneof" json:"create_only,omitempty"`
-	// @gotags: yaml:"disabled,omitempty"
-	Disabled *bool `protobuf:"varint,8,opt,name=disabled,proto3,oneof" json:"disabled,omitempty"`
-	// @gotags: yaml:"keepBranchAfterMerge,omitempty"
-	KeepBranchAfterMerge *bool    `protobuf:"varint,9,opt,name=keep_branch_after_merge,json=keepBranchAfterMerge,proto3,oneof" json:"keep_branch_after_merge,omitempty"`
+
+	AutoMerge *bool `protobuf:"varint,2,opt,name=auto_merge,json=autoMerge,proto3,oneof" json:"auto_merge,omitempty" yaml:"autoMerge,omitempty"`
+
+	AutoMergeAfterSeconds *int32 `protobuf:"varint,3,opt,name=auto_merge_after_seconds,json=autoMergeAfterSeconds,proto3,oneof" json:"auto_merge_after_seconds,omitempty" yaml:"autoMergeAfterSeconds,omitempty"`
+
+	BranchName *string `protobuf:"bytes,4,opt,name=branch_name,json=branchName,proto3,oneof" json:"branch_name,omitempty" yaml:"branchName,omitempty"`
+
+	ChangeLimit *int32 `protobuf:"varint,5,opt,name=change_limit,json=changeLimit,proto3,oneof" json:"change_limit,omitempty" yaml:"changeLimit,omitempty"`
+
+	CommitMessage *string `protobuf:"bytes,6,opt,name=commit_message,json=commitMessage,proto3,oneof" json:"commit_message,omitempty" yaml:"commitMessage,omitempty"`
+
+	CreateOnly *bool `protobuf:"varint,7,opt,name=create_only,json=createOnly,proto3,oneof" json:"create_only,omitempty" yaml:"createOnly,omitempty"`
+
+	Disabled *bool `protobuf:"varint,8,opt,name=disabled,proto3,oneof" json:"disabled,omitempty" yaml:"disabled,omitempty"`
+
+	KeepBranchAfterMerge *bool    `protobuf:"varint,9,opt,name=keep_branch_after_merge,json=keepBranchAfterMerge,proto3,oneof" json:"keep_branch_after_merge,omitempty" yaml:"keepBranchAfterMerge,omitempty"`
 	Labels               []string `protobuf:"bytes,10,rep,name=labels,proto3" json:"labels,omitempty"`
-	// @gotags: yaml:"mergeOnce,omitempty"
-	MergeOnce *bool `protobuf:"varint,11,opt,name=merge_once,json=mergeOnce,proto3,oneof" json:"merge_once,omitempty"`
-	// @gotags: yaml:"prBody,omitempty"
-	PrBody *string `protobuf:"bytes,12,opt,name=pr_body,json=prBody,proto3,oneof" json:"pr_body,omitempty"`
-	// @gotags: yaml:"prTitle,omitempty"
-	PrTitle *string `protobuf:"bytes,13,opt,name=pr_title,json=prTitle,proto3,oneof" json:"pr_title,omitempty"`
-	// @gotags: yaml:"filters,omitempty"
-	Filters []*Filter `protobuf:"bytes,14,rep,name=filters,proto3" json:"filters,omitempty"`
-	// @gotags: yaml:"actions,omitempty"
-	Actions []*Action `protobuf:"bytes,15,rep,name=actions,proto3" json:"actions,omitempty"`
+
+	MergeOnce *bool `protobuf:"varint,11,opt,name=merge_once,json=mergeOnce,proto3,oneof" json:"merge_once,omitempty" yaml:"mergeOnce,omitempty"`
+
+	PrBody *string `protobuf:"bytes,12,opt,name=pr_body,json=prBody,proto3,oneof" json:"pr_body,omitempty" yaml:"prBody,omitempty"`
+
+	PrTitle *string `protobuf:"bytes,13,opt,name=pr_title,json=prTitle,proto3,oneof" json:"pr_title,omitempty" yaml:"prTitle,omitempty"`
+
+	Filters []*Filter `protobuf:"bytes,14,rep,name=filters,proto3" json:"filters,omitempty" yaml:"filters,omitempty"`
+
+	Actions []*Action `protobuf:"bytes,15,rep,name=actions,proto3" json:"actions,omitempty" yaml:"actions,omitempty"`
 }
 
 func (x *Task) Reset() {
