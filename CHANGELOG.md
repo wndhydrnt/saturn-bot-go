@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/wndhydrnt/saturn-sync-go/compare/v0.1.0...v0.1.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* add yaml tags to generated structs ([469d26f](https://github.com/wndhydrnt/saturn-sync-go/commit/469d26fc941d5a6c9dfe837892a9417c7f890fd5))
+
 ## 0.1.0 (2024-03-12)
 
 
