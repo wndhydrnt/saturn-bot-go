@@ -27,7 +27,7 @@ type Task struct {
 	CommitMessage         string
 	CreateOnly            bool
 	Disabled              bool
-	Filters               []*protocolv1.Filter
+	Filters               *protocolv1.Filters
 	KeepBranchAfterMerge  bool
 	Labels                []string
 	MergeOnce             bool
@@ -67,7 +67,7 @@ func (t *Task) GetDisabled() bool {
 	return t.Disabled
 }
 
-func (t *Task) GetFilters() []*protocolv1.Filter {
+func (t *Task) GetFilters() *protocolv1.Filters {
 	return t.Filters
 }
 
@@ -118,7 +118,7 @@ type Tasker interface {
 	GetCommitMessage() string
 	GetCreateOnly() bool
 	GetDisabled() bool
-	GetFilters() []*protocolv1.Filter
+	GetFilters() *protocolv1.Filters
 	GetKeepBranchAfterMerge() bool
 	GetLabels() []string
 	GetMergeOnce() bool
@@ -137,7 +137,7 @@ type provider struct {
 func (p *provider) ExecuteActions(req *protocolv1.ExecuteActionsRequest) (*protocolv1.ExecuteActionsResponse, error) {
 	task, err := p.findTask(req.TaskName)
 	if err != nil {
-		return &protocolv1.ExecuteActionsResponse{Error: ptr(err.Error())}, nil
+		return &protocolv1.ExecuteActionsResponse{Error: Ptr(err.Error())}, nil
 	}
 
 	err = inDirectory(req.Path, func() error {
@@ -154,13 +154,13 @@ func (p *provider) ExecuteFilters(req *protocolv1.ExecuteFiltersRequest) (*proto
 	resp := &protocolv1.ExecuteFiltersResponse{}
 	task, err := p.findTask(req.TaskName)
 	if err != nil {
-		resp.Error = ptr(err.Error())
+		resp.Error = Ptr(err.Error())
 		return resp, nil
 	}
 
 	match, err := task.Filter(req.GetContext())
 	if err != nil {
-		resp.Error = ptr(err.Error())
+		resp.Error = Ptr(err.Error())
 		return resp, nil
 	}
 
@@ -187,13 +187,13 @@ func (p *provider) OnPrClosed(req *protocolv1.OnPrClosedRequest) (*protocolv1.On
 	resp := &protocolv1.OnPrClosedResponse{}
 	task, err := p.findTask(req.TaskName)
 	if err != nil {
-		resp.Error = ptr(err.Error())
+		resp.Error = Ptr(err.Error())
 		return resp, nil
 	}
 
 	err = task.OnPrClosed(req.GetContext())
 	if err != nil {
-		resp.Error = ptr(err.Error())
+		resp.Error = Ptr(err.Error())
 		return resp, nil
 	}
 
@@ -204,13 +204,13 @@ func (p *provider) OnPrCreated(req *protocolv1.OnPrCreatedRequest) (*protocolv1.
 	resp := &protocolv1.OnPrCreatedResponse{}
 	task, err := p.findTask(req.TaskName)
 	if err != nil {
-		resp.Error = ptr(err.Error())
+		resp.Error = Ptr(err.Error())
 		return resp, nil
 	}
 
 	err = task.OnPrCreated(req.GetContext())
 	if err != nil {
-		resp.Error = ptr(err.Error())
+		resp.Error = Ptr(err.Error())
 		return resp, nil
 	}
 
@@ -221,13 +221,13 @@ func (p *provider) OnPrMerged(req *protocolv1.OnPrMergedRequest) (*protocolv1.On
 	resp := &protocolv1.OnPrMergedResponse{}
 	task, err := p.findTask(req.TaskName)
 	if err != nil {
-		resp.Error = ptr(err.Error())
+		resp.Error = Ptr(err.Error())
 		return resp, nil
 	}
 
 	err = task.OnPrMerged(req.GetContext())
 	if err != nil {
-		resp.Error = ptr(err.Error())
+		resp.Error = Ptr(err.Error())
 		return resp, nil
 	}
 
@@ -258,23 +258,23 @@ func toProtoTask(t Tasker) *protocolv1.Task {
 	return &protocolv1.Task{
 		Name:                  t.GetName(),
 		Actions:               []*protocolv1.Action{},
-		AutoMerge:             ptr(t.GetAutoMerge()),
-		AutoMergeAfterSeconds: ptr(int32(t.GetAutoMergeAfterSeconds())),
-		BranchName:            ptr(t.GetBranchName()),
-		ChangeLimit:           ptr(int32(t.GetChangeLimit())),
-		CommitMessage:         ptr(t.GetCommitMessage()),
-		CreateOnly:            ptr(t.GetCreateOnly()),
-		Disabled:              ptr(t.GetDisabled()),
+		AutoMerge:             Ptr(t.GetAutoMerge()),
+		AutoMergeAfterSeconds: Ptr(int32(t.GetAutoMergeAfterSeconds())),
+		BranchName:            Ptr(t.GetBranchName()),
+		ChangeLimit:           Ptr(int32(t.GetChangeLimit())),
+		CommitMessage:         Ptr(t.GetCommitMessage()),
+		CreateOnly:            Ptr(t.GetCreateOnly()),
+		Disabled:              Ptr(t.GetDisabled()),
 		Filters:               t.GetFilters(),
-		KeepBranchAfterMerge:  ptr(t.GetKeepBranchAfterMerge()),
+		KeepBranchAfterMerge:  Ptr(t.GetKeepBranchAfterMerge()),
 		Labels:                t.GetLabels(),
-		MergeOnce:             ptr(t.GetMergeOnce()),
-		PrBody:                ptr(t.GetPrBody()),
-		PrTitle:               ptr(t.GetPrTitle()),
+		MergeOnce:             Ptr(t.GetMergeOnce()),
+		PrBody:                Ptr(t.GetPrBody()),
+		PrTitle:               Ptr(t.GetPrTitle()),
 	}
 }
 
-func ptr[T any](t T) *T {
+func Ptr[T any](t T) *T {
 	return &t
 }
 
