@@ -20,6 +20,7 @@ var (
 
 type Task struct {
 	Name                  string
+	Actions               *protocolv1.Actions
 	AutoMerge             bool
 	AutoMergeAfterSeconds int
 	BranchName            string
@@ -37,6 +38,10 @@ type Task struct {
 
 func (t *Task) GetName() string {
 	return t.Name
+}
+
+func (t *Task) GetActions() *protocolv1.Actions {
+	return t.Actions
 }
 
 func (t *Task) GetAutoMerge() bool {
@@ -111,6 +116,7 @@ type Tasker interface {
 	Apply(ctx *protocolv1.Context) error
 	Filter(ctx *protocolv1.Context) (bool, error)
 	GetName() string
+	GetActions() *protocolv1.Actions
 	GetAutoMerge() bool
 	GetAutoMergeAfterSeconds() int
 	GetBranchName() string
@@ -257,7 +263,7 @@ func ServeTask(task ...Tasker) {
 func toProtoTask(t Tasker) *protocolv1.Task {
 	return &protocolv1.Task{
 		Name:                  t.GetName(),
-		Actions:               []*protocolv1.Action{},
+		Actions:               t.GetActions(),
 		AutoMerge:             Ptr(t.GetAutoMerge()),
 		AutoMergeAfterSeconds: Ptr(int32(t.GetAutoMergeAfterSeconds())),
 		BranchName:            Ptr(t.GetBranchName()),

@@ -1,4 +1,4 @@
-PROTOCOL_VERSION=v0.5.0
+PROTOCOL_VERSION?=v0.6.0
 
 clean:
 	rm protocol/v1/saturnsync.proto
