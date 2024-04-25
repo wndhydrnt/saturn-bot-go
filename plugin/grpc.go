@@ -11,7 +11,7 @@ import (
 )
 
 type ProviderGrpcServer struct {
-	proto.UnimplementedTaskServiceServer
+	proto.UnimplementedPluginServiceServer
 	Impl Provider
 }
 
@@ -23,8 +23,8 @@ func (s *ProviderGrpcServer) ExecuteFilters(ctx context.Context, request *proto.
 	return s.Impl.ExecuteFilters(request)
 }
 
-func (s *ProviderGrpcServer) ListTasks(ctx context.Context, request *proto.ListTasksRequest) (*proto.ListTasksResponse, error) {
-	return s.Impl.ListTasks(request)
+func (s *ProviderGrpcServer) GetPlugin(ctx context.Context, request *proto.GetPluginRequest) (*proto.GetPluginResponse, error) {
+	return s.Impl.GetPlugin(request)
 }
 
 func (s *ProviderGrpcServer) OnPrClosed(_ context.Context, request *proto.OnPrClosedRequest) (*proto.OnPrClosedResponse, error) {
@@ -40,7 +40,7 @@ func (s *ProviderGrpcServer) OnPrMerged(_ context.Context, request *proto.OnPrMe
 }
 
 type ProviderGrpcClient struct {
-	client proto.TaskServiceClient
+	client proto.PluginServiceClient
 }
 
 func (c *ProviderGrpcClient) ExecuteActions(req *proto.ExecuteActionsRequest) (*proto.ExecuteActionsResponse, error) {
@@ -51,8 +51,8 @@ func (c *ProviderGrpcClient) ExecuteFilters(req *proto.ExecuteFiltersRequest) (*
 	return c.client.ExecuteFilters(context.Background(), req)
 }
 
-func (c *ProviderGrpcClient) ListTasks(req *proto.ListTasksRequest) (*proto.ListTasksResponse, error) {
-	return c.client.ListTasks(context.Background(), req)
+func (c *ProviderGrpcClient) GetPlugin(req *proto.GetPluginRequest) (*proto.GetPluginResponse, error) {
+	return c.client.GetPlugin(context.Background(), req)
 }
 
 func (c *ProviderGrpcClient) OnPrClosed(req *proto.OnPrClosedRequest) (*proto.OnPrClosedResponse, error) {
