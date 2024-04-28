@@ -11,7 +11,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	protocolv1 "github.com/wndhydrnt/saturn-sync-go/protocol/v1"
+	protocolv1 "github.com/wndhydrnt/saturn-bot-go/protocol/v1"
 )
 
 type testPlugin struct {

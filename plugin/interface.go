@@ -8,12 +8,12 @@ import (
 	"context"
 
 	"github.com/hashicorp/go-plugin"
-	proto "github.com/wndhydrnt/saturn-sync-go/protocol/v1"
+	proto "github.com/wndhydrnt/saturn-bot-go/protocol/v1"
 	"google.golang.org/grpc"
 )
 
 const (
-	ID = "saturn-sync-plugin"
+	ID = "saturn-bot-plugin"
 )
 
 var Handshake = plugin.HandshakeConfig{

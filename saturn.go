@@ -9,8 +9,8 @@ import (
 	"os"
 
 	goPlugin "github.com/hashicorp/go-plugin"
-	"github.com/wndhydrnt/saturn-sync-go/plugin"
-	protocolv1 "github.com/wndhydrnt/saturn-sync-go/protocol/v1"
+	"github.com/wndhydrnt/saturn-bot-go/plugin"
+	protocolv1 "github.com/wndhydrnt/saturn-bot-go/protocol/v1"
 )
 
 type Plugin interface {

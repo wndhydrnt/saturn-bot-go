@@ -1,4 +1,4 @@
-module github.com/wndhydrnt/saturn-sync-go
+module github.com/wndhydrnt/saturn-bot-go
 
 go 1.21.6
 

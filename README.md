@@ -1,1 +1,1 @@
-# saturn-sync-go
+# saturn-bot-go

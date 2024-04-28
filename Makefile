@@ -7,7 +7,7 @@ generate: protocol/v1/saturnsync.proto
 	buf generate
 
 protocol/v1/saturnsync.proto:
-	curl -L --silent --fail -o ./protocol/v1/saturnsync.proto https://raw.githubusercontent.com/wndhydrnt/saturn-sync-protocol/$(PROTOCOL_VERSION)/protocol/v1/saturnsync.proto
+	curl -L --silent --fail -o ./protocol/v1/saturnsync.proto https://raw.githubusercontent.com/wndhydrnt/saturn-bot-protocol/$(PROTOCOL_VERSION)/protocol/v1/saturnsync.proto
 
 test_cover:
 	go test -covermode=set -coverpkg=./... -coverprofile cover.out -v ./...
