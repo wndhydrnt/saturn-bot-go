@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/wndhydrnt/saturn-bot-go/compare/v0.2.0...v0.3.0) (2024-04-28)
+
+
+### Features
+
+* Rename repository from "saturn-sync-go" to "saturn-bot-go" ([f3c895b](https://github.com/wndhydrnt/saturn-bot-go/commit/f3c895bd920a60e65a989ae91d0b62773acc30e7))
+
 ## [0.2.0](https://github.com/wndhydrnt/saturn-bot-go/compare/v0.1.1...v0.2.0) (2024-04-25)
 
 ### Features
