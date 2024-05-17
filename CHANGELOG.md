@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/wndhydrnt/saturn-bot-go/compare/v0.3.0...v0.3.1) (2024-05-17)
+
+
+### Bug Fixes
+
+* Correct Go package name ([#6](https://github.com/wndhydrnt/saturn-bot-go/issues/6)) ([2b43b4d](https://github.com/wndhydrnt/saturn-bot-go/commit/2b43b4d229001b93d320c7a259dde80c127435a7))
+
 ## [0.3.0](https://github.com/wndhydrnt/saturn-bot-go/compare/v0.2.0...v0.3.0) (2024-04-28)
 
 
