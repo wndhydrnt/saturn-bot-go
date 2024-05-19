@@ -1,13 +1,13 @@
-PROTOCOL_VERSION?=v0.7.0
+PROTOCOL_VERSION?=v0.9.0
 
 clean:
-	rm protocol/v1/saturnsync.proto
+	rm protocol/v1/saturnbot.proto
 
-generate: protocol/v1/saturnsync.proto
+generate: protocol/v1/saturnbot.proto
 	buf generate
 
-protocol/v1/saturnsync.proto:
-	curl -L --silent --fail -o ./protocol/v1/saturnsync.proto https://raw.githubusercontent.com/wndhydrnt/saturn-bot-protocol/$(PROTOCOL_VERSION)/protocol/v1/saturnsync.proto
+protocol/v1/saturnbot.proto:
+	curl -L --silent --fail -o ./protocol/v1/saturnbot.proto https://raw.githubusercontent.com/wndhydrnt/saturn-bot-protocol/$(PROTOCOL_VERSION)/protocol/v1/saturnbot.proto
 
 test_cover:
 	go test -covermode=set -coverpkg=./... -coverprofile cover.out -v ./...
