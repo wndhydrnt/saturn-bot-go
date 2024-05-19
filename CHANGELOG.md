@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/wndhydrnt/saturn-bot-go/compare/v0.3.1...v0.4.0) (2024-05-19)
+
+
+### Features
+
+* Upgrade protocol to v0.9.0 - support template vars and plugin data ([#8](https://github.com/wndhydrnt/saturn-bot-go/issues/8)) ([daef96b](https://github.com/wndhydrnt/saturn-bot-go/commit/daef96b3a7aa504c4cae445975500d63fada3daf))
+
 ## [0.3.1](https://github.com/wndhydrnt/saturn-bot-go/compare/v0.3.0...v0.3.1) (2024-05-17)
 
 
