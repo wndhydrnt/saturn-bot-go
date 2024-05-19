@@ -6,7 +6,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             (unknown)
-// source: protocol/v1/saturnsync.proto
+// source: protocol/v1/saturnbot.proto
 
 package protocolv1
 
@@ -294,5 +294,5 @@ var PluginService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "protocol/v1/saturnsync.proto",
+	Metadata: "protocol/v1/saturnbot.proto",
 }

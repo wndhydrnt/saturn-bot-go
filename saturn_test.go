@@ -22,7 +22,9 @@ type testPlugin struct {
 	onPrMergedCallCount  int
 }
 
-func (tt *testPlugin) Apply(ctx *protocolv1.Context) error {
+func (tt *testPlugin) Apply(ctx Context) error {
+	ctx.TemplateVars["tplSource"] = "apply"
+	ctx.PluginData["pdSource"] = "apply"
 	f, err := os.Create("unittest.txt")
 	if err != nil {
 		return err
@@ -31,7 +33,9 @@ func (tt *testPlugin) Apply(ctx *protocolv1.Context) error {
 	return f.Close()
 }
 
-func (tt *testPlugin) Filter(ctx *protocolv1.Context) (bool, error) {
+func (tt *testPlugin) Filter(ctx Context) (bool, error) {
+	ctx.TemplateVars["tplSource"] = "filter"
+	ctx.PluginData["pdSource"] = "filter"
 	return tt.filterReturn, nil
 }
 
@@ -44,17 +48,17 @@ func (tt *testPlugin) Name() string {
 	return "testPlugin"
 }
 
-func (tt *testPlugin) OnPrClosed(ctx *protocolv1.Context) error {
+func (tt *testPlugin) OnPrClosed(ctx Context) error {
 	tt.onPrClosedCallCount++
 	return nil
 }
 
-func (tt *testPlugin) OnPrCreated(ctx *protocolv1.Context) error {
+func (tt *testPlugin) OnPrCreated(ctx Context) error {
 	tt.onPrCreatedCallCount++
 	return nil
 }
 
-func (tt *testPlugin) OnPrMerged(ctx *protocolv1.Context) error {
+func (tt *testPlugin) OnPrMerged(ctx Context) error {
 	tt.onPrMergedCallCount++
 	return nil
 }
@@ -67,13 +71,20 @@ func TestProvider_ExecuteActions_ApplySucceeds(t *testing.T) {
 	p1 := &testPlugin{}
 	dir, err := os.MkdirTemp("", "")
 	require.NoError(t, err)
-	req := &protocolv1.ExecuteActionsRequest{Path: dir}
+	req := &protocolv1.ExecuteActionsRequest{
+		Context: &protocolv1.Context{
+			PluginData: make(map[string]string),
+		},
+		Path: dir,
+	}
 
 	p := &provider{plugin: p1}
 	resp, err := p.ExecuteActions(req)
 
 	require.NoError(t, err)
 	assert.Equal(t, "", resp.GetError())
+	assert.Equal(t, map[string]string{"pdSource": "apply"}, resp.GetPluginData())
+	assert.Equal(t, map[string]string{"tplSource": "apply"}, resp.GetTemplateVars())
 	_, err = os.Stat(path.Join(dir, "unittest.txt"))
 	require.NoError(t, err)
 }
@@ -82,13 +93,19 @@ func TestProvider_ExecuteFilters_Succeed(t *testing.T) {
 	p1 := &testPlugin{
 		filterReturn: true,
 	}
-	req := &protocolv1.ExecuteFiltersRequest{}
+	req := &protocolv1.ExecuteFiltersRequest{
+		Context: &protocolv1.Context{
+			PluginData: make(map[string]string),
+		},
+	}
 
 	p := &provider{plugin: p1}
 	resp, err := p.ExecuteFilters(req)
 
 	require.NoError(t, err)
 	assert.Equal(t, "", resp.GetError())
+	assert.Equal(t, map[string]string{"pdSource": "filter"}, resp.GetPluginData())
+	assert.Equal(t, map[string]string{"tplSource": "filter"}, resp.GetTemplateVars())
 	assert.True(t, resp.GetMatch())
 }
 
