@@ -72,10 +72,8 @@ func TestProvider_ExecuteActions_ApplySucceeds(t *testing.T) {
 	dir, err := os.MkdirTemp("", "")
 	require.NoError(t, err)
 	req := &protocolv1.ExecuteActionsRequest{
-		Context: &protocolv1.Context{
-			PluginData: make(map[string]string),
-		},
-		Path: dir,
+		Context: &protocolv1.Context{},
+		Path:    dir,
 	}
 
 	p := &provider{plugin: p1}
@@ -94,9 +92,7 @@ func TestProvider_ExecuteFilters_Succeed(t *testing.T) {
 		filterReturn: true,
 	}
 	req := &protocolv1.ExecuteFiltersRequest{
-		Context: &protocolv1.Context{
-			PluginData: make(map[string]string),
-		},
+		Context: &protocolv1.Context{},
 	}
 
 	p := &provider{plugin: p1}

@@ -60,6 +60,10 @@ type Context struct {
 }
 
 func newContext(c *protocolv1.Context) Context {
+	if c != nil && c.PluginData == nil {
+		c.PluginData = make(map[string]string)
+	}
+
 	return Context{
 		Context:      c,
 		TemplateVars: make(map[string]string),
