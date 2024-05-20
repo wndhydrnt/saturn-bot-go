@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/wndhydrnt/saturn-bot-go/compare/v0.4.0...v0.4.1) (2024-05-20)
+
+
+### Bug Fixes
+
+* Always initialize map that holds plugin data ([#10](https://github.com/wndhydrnt/saturn-bot-go/issues/10)) ([a100af9](https://github.com/wndhydrnt/saturn-bot-go/commit/a100af96a4bb9b8e20dd98effe5278907d1fba60))
+
 ## [0.4.0](https://github.com/wndhydrnt/saturn-bot-go/compare/v0.3.1...v0.4.0) (2024-05-19)
 
 
