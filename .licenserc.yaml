@@ -15,7 +15,7 @@ header:
     - "**/*.yaml"
     - "**/*.yml"
     - "**/*.toml"
-    - ".*ignore"
+    - "**/.*ignore"
     - "README"
     - "**/*.txt"
     - "go.mod"
