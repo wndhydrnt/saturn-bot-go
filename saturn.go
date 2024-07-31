@@ -56,17 +56,15 @@ func (p BasePlugin) Priority() int32 {
 
 type Context struct {
 	*protocolv1.Context
-	TemplateVars map[string]string
 }
 
 func newContext(c *protocolv1.Context) Context {
-	if c != nil && c.PluginData == nil {
-		c.PluginData = make(map[string]string)
+	if c != nil && c.RunData == nil {
+		c.RunData = make(map[string]string)
 	}
 
 	return Context{
-		Context:      c,
-		TemplateVars: make(map[string]string),
+		Context: c,
 	}
 }
 
@@ -83,7 +81,7 @@ func (p *provider) ExecuteActions(req *protocolv1.ExecuteActionsRequest) (*proto
 		return &protocolv1.ExecuteActionsResponse{Error: fmtErr("apply of task failed: %s", err.Error())}, nil
 	}
 
-	return &protocolv1.ExecuteActionsResponse{PluginData: ctx.PluginData, TemplateVars: ctx.TemplateVars}, nil
+	return &protocolv1.ExecuteActionsResponse{RunData: ctx.RunData}, nil
 }
 
 func (p *provider) ExecuteFilters(req *protocolv1.ExecuteFiltersRequest) (*protocolv1.ExecuteFiltersResponse, error) {
@@ -96,8 +94,7 @@ func (p *provider) ExecuteFilters(req *protocolv1.ExecuteFiltersRequest) (*proto
 	}
 
 	resp.Match = match
-	resp.PluginData = ctx.PluginData
-	resp.TemplateVars = ctx.TemplateVars
+	resp.RunData = ctx.RunData
 	return resp, nil
 }
 

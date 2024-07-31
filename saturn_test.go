@@ -23,8 +23,7 @@ type testPlugin struct {
 }
 
 func (tt *testPlugin) Apply(ctx Context) error {
-	ctx.TemplateVars["tplSource"] = "apply"
-	ctx.PluginData["pdSource"] = "apply"
+	ctx.RunData["source"] = "apply"
 	f, err := os.Create("unittest.txt")
 	if err != nil {
 		return err
@@ -34,8 +33,7 @@ func (tt *testPlugin) Apply(ctx Context) error {
 }
 
 func (tt *testPlugin) Filter(ctx Context) (bool, error) {
-	ctx.TemplateVars["tplSource"] = "filter"
-	ctx.PluginData["pdSource"] = "filter"
+	ctx.RunData["source"] = "filter"
 	return tt.filterReturn, nil
 }
 
@@ -81,8 +79,7 @@ func TestProvider_ExecuteActions_ApplySucceeds(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, "", resp.GetError())
-	assert.Equal(t, map[string]string{"pdSource": "apply"}, resp.GetPluginData())
-	assert.Equal(t, map[string]string{"tplSource": "apply"}, resp.GetTemplateVars())
+	assert.Equal(t, map[string]string{"source": "apply"}, resp.GetRunData())
 	_, err = os.Stat(path.Join(dir, "unittest.txt"))
 	require.NoError(t, err)
 }
@@ -100,8 +97,7 @@ func TestProvider_ExecuteFilters_Succeed(t *testing.T) {
 
 	require.NoError(t, err)
 	assert.Equal(t, "", resp.GetError())
-	assert.Equal(t, map[string]string{"pdSource": "filter"}, resp.GetPluginData())
-	assert.Equal(t, map[string]string{"tplSource": "filter"}, resp.GetTemplateVars())
+	assert.Equal(t, map[string]string{"source": "filter"}, resp.GetRunData())
 	assert.True(t, resp.GetMatch())
 }
 
