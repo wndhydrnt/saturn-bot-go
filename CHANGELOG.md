@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/wndhydrnt/saturn-bot-go/compare/v0.4.1...v0.5.0) (2024-07-31)
+
+
+### Features
+
+* Upgrade protocol to v0.10.0 ([d3327b5](https://github.com/wndhydrnt/saturn-bot-go/commit/d3327b5ef0a59e9a4b814a5599bbd6cdda1eaf8f))
+
 ## [0.4.1](https://github.com/wndhydrnt/saturn-bot-go/compare/v0.4.0...v0.4.1) (2024-05-20)
 
 
