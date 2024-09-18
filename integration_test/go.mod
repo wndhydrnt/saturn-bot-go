@@ -1,6 +1,6 @@
 module plugin-integration-test
 
-go 1.23.1
+go 1.21.6
 
 require github.com/wndhydrnt/saturn-bot-go v0.5.0
 
