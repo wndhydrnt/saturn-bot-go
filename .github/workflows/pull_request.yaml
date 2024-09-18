@@ -24,3 +24,5 @@ jobs:
           go-version: ${{ matrix.go-version }}
       - name: Run tests
         run: make test_cover
+      - name: Run integration tests
+        run: make test_integration
