@@ -1,2 +1,4 @@
 **/*.proto
 cover.html
+integration_test/plugin-integration-test
+integration_test/integration-test-*
