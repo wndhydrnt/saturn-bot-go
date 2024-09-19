@@ -24,5 +24,6 @@ jobs:
           go-version: ${{ matrix.go-version }}
       - name: Run tests
         run: make test_cover
+      - run: go install github.com/wndhydrnt/saturn-bot@main
       - name: Run integration tests
         run: make test_integration

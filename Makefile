@@ -1,7 +1,8 @@
-PROTOCOL_VERSION?=v0.11.2
+PROTOCOL_VERSION?=v0.11.3
 INTEGRATION_TEST_BIN=integration-test-$(PROTOCOL_VERSION).$(shell uname -s)-$(shell uname -m)
 INTEGRATION_TEST_BIN_PATH=integration_test/$(INTEGRATION_TEST_BIN)
 INTEGRATION_TEST_PLUGIN_PATH=integration_test/plugin-integration-test
+SATURN_BOT_BIN_PATH?=saturn-bot
 
 clean:
 	rm protocol/v1/saturnbot.proto || true
@@ -27,4 +28,4 @@ $(INTEGRATION_TEST_BIN_PATH):
 
 .PHONY: test_integration
 test_integration: $(INTEGRATION_TEST_BIN_PATH) $(INTEGRATION_TEST_PLUGIN_PATH)
-	$(INTEGRATION_TEST_BIN_PATH) -path $(INTEGRATION_TEST_PLUGIN_PATH)
+	$(INTEGRATION_TEST_BIN_PATH) -plugin-path $(INTEGRATION_TEST_PLUGIN_PATH) -saturn-bot-path $(SATURN_BOT_BIN_PATH)
