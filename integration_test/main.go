@@ -20,6 +20,14 @@ type IntegrationTest struct {
 }
 
 func (p *IntegrationTest) Apply(ctx saturnbot.Context) error {
+	if ctx.Repository.FullName == "git.localhost/integration/log" {
+		// Writes to stdout
+		fmt.Println("Integration Test")
+		// Writes to stderr
+		_, _ = fmt.Fprintf(os.Stderr, "Integration Test")
+		return nil
+	}
+
 	content := fmt.Sprintf("%s\n%s", p.staticContent, ctx.RunData["dynamic"])
 	return os.WriteFile("integration-test.txt", []byte(content), 0600)
 }
