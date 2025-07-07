@@ -22,6 +22,7 @@ type Plugin interface {
 	OnPrCreated(ctx Context) error
 	OnPrMerged(ctx Context) error
 	Priority() int32
+	Shutdown() error
 }
 
 type BasePlugin struct{}
@@ -52,6 +53,12 @@ func (p BasePlugin) OnPrMerged(ctx Context) error {
 
 func (p BasePlugin) Priority() int32 {
 	return 0
+}
+
+// Shutdown executes code to clean up data before the plugin shuts down.
+// The function gets executed once, right before saturn-bot stops the plugin.
+func (p BasePlugin) Shutdown() error {
+	return nil
 }
 
 type Context struct {
@@ -151,6 +158,11 @@ func (p *provider) OnPrMerged(req *protocolv1.OnPrMergedRequest) (*protocolv1.On
 	}
 
 	return resp, nil
+}
+
+func (p *provider) Shutdown(_ *protocolv1.ShutdownRequest) (*protocolv1.ShutdownResponse, error) {
+	_ = p.plugin.Shutdown()
+	return &protocolv1.ShutdownResponse{}, nil
 }
 
 func ServePlugin(p Plugin) {

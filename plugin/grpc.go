@@ -39,6 +39,10 @@ func (s *ProviderGrpcServer) OnPrMerged(_ context.Context, request *proto.OnPrMe
 	return s.Impl.OnPrMerged(request)
 }
 
+func (s *ProviderGrpcServer) Shutdown(_ context.Context, request *proto.ShutdownRequest) (*proto.ShutdownResponse, error) {
+	return s.Impl.Shutdown(request)
+}
+
 type ProviderGrpcClient struct {
 	client proto.PluginServiceClient
 }
@@ -65,4 +69,8 @@ func (c *ProviderGrpcClient) OnPrCreated(req *proto.OnPrCreatedRequest) (*proto.
 
 func (c *ProviderGrpcClient) OnPrMerged(req *proto.OnPrMergedRequest) (*proto.OnPrMergedResponse, error) {
 	return c.client.OnPrMerged(context.Background(), req)
+}
+
+func (c *ProviderGrpcClient) Shutdown(req *proto.ShutdownRequest) (*proto.ShutdownResponse, error) {
+	return c.client.Shutdown(context.Background(), req)
 }

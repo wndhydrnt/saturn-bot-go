@@ -29,6 +29,7 @@ const (
 	PluginService_OnPrClosed_FullMethodName     = "/protocol.v1.PluginService/OnPrClosed"
 	PluginService_OnPrCreated_FullMethodName    = "/protocol.v1.PluginService/OnPrCreated"
 	PluginService_OnPrMerged_FullMethodName     = "/protocol.v1.PluginService/OnPrMerged"
+	PluginService_Shutdown_FullMethodName       = "/protocol.v1.PluginService/Shutdown"
 )
 
 // PluginServiceClient is the client API for PluginService service.
@@ -41,6 +42,7 @@ type PluginServiceClient interface {
 	OnPrClosed(ctx context.Context, in *OnPrClosedRequest, opts ...grpc.CallOption) (*OnPrClosedResponse, error)
 	OnPrCreated(ctx context.Context, in *OnPrCreatedRequest, opts ...grpc.CallOption) (*OnPrCreatedResponse, error)
 	OnPrMerged(ctx context.Context, in *OnPrMergedRequest, opts ...grpc.CallOption) (*OnPrMergedResponse, error)
+	Shutdown(ctx context.Context, in *ShutdownRequest, opts ...grpc.CallOption) (*ShutdownResponse, error)
 }
 
 type pluginServiceClient struct {
@@ -105,6 +107,15 @@ func (c *pluginServiceClient) OnPrMerged(ctx context.Context, in *OnPrMergedRequ
 	return out, nil
 }
 
+func (c *pluginServiceClient) Shutdown(ctx context.Context, in *ShutdownRequest, opts ...grpc.CallOption) (*ShutdownResponse, error) {
+	out := new(ShutdownResponse)
+	err := c.cc.Invoke(ctx, PluginService_Shutdown_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PluginServiceServer is the server API for PluginService service.
 // All implementations must embed UnimplementedPluginServiceServer
 // for forward compatibility
@@ -115,6 +126,7 @@ type PluginServiceServer interface {
 	OnPrClosed(context.Context, *OnPrClosedRequest) (*OnPrClosedResponse, error)
 	OnPrCreated(context.Context, *OnPrCreatedRequest) (*OnPrCreatedResponse, error)
 	OnPrMerged(context.Context, *OnPrMergedRequest) (*OnPrMergedResponse, error)
+	Shutdown(context.Context, *ShutdownRequest) (*ShutdownResponse, error)
 	mustEmbedUnimplementedPluginServiceServer()
 }
 
@@ -139,6 +151,9 @@ func (UnimplementedPluginServiceServer) OnPrCreated(context.Context, *OnPrCreate
 }
 func (UnimplementedPluginServiceServer) OnPrMerged(context.Context, *OnPrMergedRequest) (*OnPrMergedResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OnPrMerged not implemented")
+}
+func (UnimplementedPluginServiceServer) Shutdown(context.Context, *ShutdownRequest) (*ShutdownResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Shutdown not implemented")
 }
 func (UnimplementedPluginServiceServer) mustEmbedUnimplementedPluginServiceServer() {}
 
@@ -261,6 +276,24 @@ func _PluginService_OnPrMerged_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PluginService_Shutdown_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ShutdownRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PluginServiceServer).Shutdown(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PluginService_Shutdown_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PluginServiceServer).Shutdown(ctx, req.(*ShutdownRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PluginService_ServiceDesc is the grpc.ServiceDesc for PluginService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -291,6 +324,10 @@ var PluginService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "OnPrMerged",
 			Handler:    _PluginService_OnPrMerged_Handler,
+		},
+		{
+			MethodName: "Shutdown",
+			Handler:    _PluginService_Shutdown_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
