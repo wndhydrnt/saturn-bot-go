@@ -1,4 +1,4 @@
-PROTOCOL_VERSION?=v0.12.0
+PROTOCOL_VERSION?=v0.11.4
 INTEGRATION_TEST_BIN=integration-test-$(PROTOCOL_VERSION).$(shell uname -s)-$(shell uname -m)
 INTEGRATION_TEST_BIN_PATH?=integration_test/$(INTEGRATION_TEST_BIN)
 INTEGRATION_TEST_PLUGIN_PATH=integration_test/plugin-integration-test
