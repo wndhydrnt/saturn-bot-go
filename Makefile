@@ -7,6 +7,7 @@ SATURN_BOT_BIN_PATH?=saturn-bot
 clean:
 	rm protocol/v1/saturnbot.proto || true
 	rm $(INTEGRATION_TEST_PLUGIN_PATH) || true
+	rm $(INTEGRATION_TEST_BIN_PATH) || true
 
 generate: protocol/v1/saturnbot.proto
 	buf generate
