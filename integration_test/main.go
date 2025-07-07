@@ -67,6 +67,11 @@ func (p *IntegrationTest) Name() string {
 	return "integration-test"
 }
 
+func (p *IntegrationTest) Shutdown() error {
+	fmt.Println("Shutdown called")
+	return nil
+}
+
 func main() {
 	saturnbot.ServePlugin(&IntegrationTest{})
 }

@@ -20,6 +20,7 @@ type testPlugin struct {
 	onPrClosedCallCount  int
 	onPrCreatedCallCount int
 	onPrMergedCallCount  int
+	shutdownCallCount    int
 }
 
 func (tt *testPlugin) Apply(ctx Context) error {
@@ -63,6 +64,11 @@ func (tt *testPlugin) OnPrMerged(ctx Context) error {
 
 func (tt *testPlugin) Priority() int32 {
 	return 10
+}
+
+func (tt *testPlugin) Shutdown() error {
+	tt.shutdownCallCount++
+	return nil
 }
 
 func TestProvider_ExecuteActions_ApplySucceeds(t *testing.T) {
@@ -146,4 +152,15 @@ func TestProvider_OnPrMerged_Succeed(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, "", resp.GetError())
 	assert.Equal(t, 1, p1.onPrMergedCallCount)
+}
+
+func TestProvider_Shutdown(t *testing.T) {
+	p1 := &testPlugin{}
+
+	p := &provider{plugin: p1}
+	resp, err := p.Shutdown(&protocolv1.ShutdownRequest{})
+
+	require.NoError(t, err)
+	assert.IsType(t, &protocolv1.ShutdownResponse{}, resp)
+	assert.Equal(t, 1, p1.shutdownCallCount)
 }

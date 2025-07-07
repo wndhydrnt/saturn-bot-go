@@ -34,6 +34,7 @@ type Provider interface {
 	OnPrClosed(*proto.OnPrClosedRequest) (*proto.OnPrClosedResponse, error)
 	OnPrCreated(*proto.OnPrCreatedRequest) (*proto.OnPrCreatedResponse, error)
 	OnPrMerged(*proto.OnPrMergedRequest) (*proto.OnPrMergedResponse, error)
+	Shutdown(*proto.ShutdownRequest) (*proto.ShutdownResponse, error)
 }
 
 // ProviderPlugin is the bridge between custom code and go-plugin.
