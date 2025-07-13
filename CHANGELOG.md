@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.6.0](https://github.com/wndhydrnt/saturn-bot-go/compare/v0.5.0...v0.6.0) (2025-07-13)
+
+
+### Features
+
+* Implement Shutdown rpc method ([#15](https://github.com/wndhydrnt/saturn-bot-go/issues/15)) ([9861b45](https://github.com/wndhydrnt/saturn-bot-go/commit/9861b4575888a921507c758994b0bae97993d35f))
+
+
+### Bug Fixes
+
+* **protocol:** Upgrade protocol version to 0.12.0 ([b30a5ef](https://github.com/wndhydrnt/saturn-bot-go/commit/b30a5ef2630aa47abc347dad265bb3d384f8c239))
+
 ## [0.5.0](https://github.com/wndhydrnt/saturn-bot-go/compare/v0.4.1...v0.5.0) (2024-07-31)
 
 
